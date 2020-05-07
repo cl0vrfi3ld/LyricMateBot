@@ -1,0 +1,75 @@
+/* LyricMate by MaddieX */
+
+/* Gradient stuff */
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+width: 100%;
+height: 100%;
+background: linear-gradient(50deg, #39afd2, #7d60d9, #d960b4, #d96060, #ceee21);
+background-size: 600% 600%;
+-webkit-animation: gradientBGAnim 3s ease infinite;
+-moz-animation: gradientBGAnim 3s ease infinite;
+-o-animation: gradientBGAnim 3s ease infinite;
+animation: gradientBGAnim 3s ease infinite;
+}
+
+/* Main Styles */
+
+#tempHeaderCS {
+  font-size: 7em;
+  font-family: oskar-inline,sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+  text-align: center;
+}
+
+/* #tempSubberCS {
+  margin-top: -3em;
+  font-size: 1.3em;
+  font-family: kandin,sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+  text-align: center;
+} */
+
+a {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  font-family: kandin,sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.3em;
+  top: 11em;
+}
+
+/* animations */
+@-webkit-keyframes gradientBGAnim {
+    0%{background-position:28% 0%}
+    50%{background-position:73% 100%}
+    100%{background-position:28% 0%}
+}
+@-moz-keyframes gradientBGAnim {
+    0%{background-position:28% 0%}
+    50%{background-position:73% 100%}
+    100%{background-position:28% 0%}
+}
+@-o-keyframes gradientBGAnim {
+    0%{background-position:28% 0%}
+    50%{background-position:73% 100%}
+    100%{background-position:28% 0%}
+}
+@keyframes gradientBGAnim {
+    0%{background-position:28% 0%}
+    50%{background-position:73% 100%}
+    100%{background-position:28% 0%}
+}
