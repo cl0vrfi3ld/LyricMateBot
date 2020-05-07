@@ -318,12 +318,13 @@ client.on('message', async message => {
 
   //stranger
   if (command === 'stranger') {
-    const strangerGifs = ["https://media.giphy.com/media/fSN8IuBnajnXkyGFHC/giphy.gif", "https://media.giphy.com/media/xV6WvZzONxxtO99TwS/giphy.gif", "https://media.giphy.com/media/ehnNYpDEz5S1kRz15C/giphy.gif", "https://media.giphy.com/media/Ze8js1RkJRUImRsxn2/giphy.gif", "https://media.giphy.com/media/9Vo2COyJErrBs2pWaV/giphy.gif", "https://media.giphy.com/media/fe4695iudYhnGAiIia/giphy.gif", "https://media.giphy.com/media/WspnUsASDqdnq0v4ZW/giphy.gif"];
+    const strangerGifs = ["https://media.giphy.com/media/fSN8IuBnajnXkyGFHC/giphy.gif", "https://media.giphy.com/media/WxJKwKzAmfLm1RazVi/giphy.gif", "https://media.giphy.com/media/xV6WvZzONxxtO99TwS/giphy.gif", "https://media.giphy.com/media/ehnNYpDEz5S1kRz15C/giphy.gif", "https://media.giphy.com/media/Ze8js1RkJRUImRsxn2/giphy.gif", "https://media.giphy.com/media/9Vo2COyJErrBs2pWaV/giphy.gif", "https://media.giphy.com/media/fe4695iudYhnGAiIia/giphy.gif", "https://media.giphy.com/media/WspnUsASDqdnq0v4ZW/giphy.gif"];
 
     // We can only play audio if someone's actually in a VC, checking:
     if (message.member.voice.channel) {
       const GIFShuffle = strangerGifs[Math.random() * strangerGifs.length | 0];
       const strangerGIFAttachment = new Discord.MessageAttachment(GIFShuffle);
+      console.log('things are aboutta get strange...');
       //join channel, then react, then play audio
       const connection = await message.member.voice.channel.join()
           .then( connection => { connection.play('assets/strangerthings.mp3') })
@@ -364,7 +365,7 @@ client.on('message', async message => {
         .then(console.log("Video is searching"))
         .catch(console.error);
         console.log(videoPullJSON);
-        const videoURL = videoPullJSON.url;
+        const videoURL = videoPullJSON.url.toString();
         const videoTitle = videoPullJSON.title;
         console.log(videoURL);
        // }
