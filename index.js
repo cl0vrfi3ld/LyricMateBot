@@ -15,7 +15,7 @@ const youtube = new YouTube(process.env.YT_KEY);
 
 const ytdl = require('ytdl-core');
 
-//Logs in our Bot to Discord
+//Logs in our Bot to Discord's API
 client.login(process.env.TOKEN);
 
 //sets status
@@ -61,6 +61,11 @@ var channelVar;
 //Listener for //ping and //help
 client.on('message', async message => {
 
+  if (message.author.bot) return;
+  if (!message.guild) return;
+  if (!message.content.includes(prefix)) return;
+
+
   //meme command
   if (message.content === "thats depressing" || message.content === "that's depressing") {
     message.channel.send("ikr smh...");
@@ -70,9 +75,7 @@ client.on('message', async message => {
   const command = args.shift().toLowerCase();
   
 
-  if (message.author.bot) return;
-  if (!message.guild) return;
-  if (!message.content.includes(prefix)) return;
+
   //ping
   if (command === 'ping') {
     message.channel.send('pong');
@@ -148,8 +151,6 @@ client.on('message', async message => {
     if (message.author.bot) return;
     if (message.member.voice.channel) {
       isInChannel = "true";
-      /*channelName = message.member.voice.channel.id.toString();
-      console.log(channelName);*/
       voiceChannel = message.member.voice.channel;
       joinRun(message.member.voice.channel);
       
@@ -261,10 +262,6 @@ client.on('message', async message => {
       //play random compilation
       const compConnection = await message.member.voice.channel.join()
           .then( compConnection => { compConnection.play(ytdl(compsShuffle, { filter: 'audioonly' }))})
-          /*.then( compConnection.play.on('finish', () => {
-            console.log('Finished playing!');
-            compConnection.play.destroy();
-          }))*/
           .catch(console.error);
     } else {
       message.reply(VCErrorJoin);
@@ -276,36 +273,7 @@ client.on('message', async message => {
     // We can only play a playlist if someone's actually in a VC, checking:
     if (message.member.voice.channel) {
       message.channel.send(incompleteFeatureMessage);
-      //set the comp type
-      /* compType = "pop"
-      //get a random compilation
-      const compsShuffle = synthwaveComps[Math.random() * synthwaveComps.length | 0];
-      console.log(compsShuffle);
-      //get comp info
-      const getYTComp = await youtube.getVideo(compsShuffle)
-      .then(console.log("Video is searching"))
-      .catch(console.error);
-      //logging info
-      console.log(getYTComp);
-      const compTitle = getYTComp.title;
-      console.log(compTitle);
-      //sending nowplaying embed
-      const compPlayEmbed = new Discord.MessageEmbed()
-          .setColor('#e36692')
-          .setTitle('Now playing: ' + compTitle)
-          .setURL(compsShuffle)
-          .setAuthor('LyricMate', 'https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png', 'https://lyricmate.xyz/')
-          .setDescription("You wanted some " + compType + " and we delivered.")
-          .addField('Requested By:', reqMessage)
-          .addField('Tip:', "You can click the 'Now Playing' button to go to the video link!")
-          .setTimestamp()
-          .setFooter('Playlist');
-  
-        message.channel.send(compPlayEmbed);
-      //play random compilation
-      const compConnection = await message.member.voice.channel.join()
-          .then( compConnection => { compConnection.play(ytdl(compsShuffle, { filter: 'audioonly' }))})
-          .catch(console.error);*/
+      
     } else {
       message.reply(VCErrorJoin);
     }
