@@ -1,4 +1,7 @@
-//Lyric Mate by MaddieX (Mojo)
+//LyricMate by MaddieX (Mojo)
+//Copyright 2020 MaddieX
+//This is not the latest version of LyricMate, it is an earlier version that is simple enough for anyone to pick apart and develop upon
+//This code is liscensed under the AGPLv3 lisence, you must follow the terms of this liscense to use this code
 require('dotenv').config({});
 
 const Discord = require('discord.js');
@@ -32,20 +35,18 @@ const incompleteFeatureMessage = "This feature is not complete, please check bac
 //prefix
 const prefix = process.env.PREFIX;
 
-//on bot join, send embed
+//on bot join, send embed to "general" channel
 client.on('guildCreate', (guild1) => {
   const welcomeEmbed = new Discord.MessageEmbed()
 	.setColor('#e36692')
 	.setTitle('Thanks for inviting LyricMate!')
-	.setAuthor('LyricMate', 'https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png', 'https://lyricmate.xyz/')
+	.setAuthor('LyricMate', 'https://lyricmate.xyz/images/lyricmate-icon.png', 'https://lyricmate.xyz/')
 	.setDescription('LyricMate is a brand new take on music bots!')
-	.setThumbnail('https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png')
-	.addFields(    
+	.setThumbnail('https://lyricmate.xyz/images/lyricmate-icon-round.png')
+	.addFields(
 		{ name: 'Need Help?', value: 'Simply type in //help for a list of commands!' },
 		{ name: '\u200B', value: '\u200B' },
-		{ name: 'Wanna add me to your server?', value: 'Give //addbot a go!'},
 	)
-	.setImage('https://i.imgur.com/wSTFkRM.png')
 	.setTimestamp()
 	.setFooter('LyricMate Welcome Message');
 
@@ -58,7 +59,7 @@ var isInChannel = "false";
 var channelName = "NULL";
 var channelHolder;
 var channelVar;
-//Listener for //ping and //help
+//Listener for messages
 client.on('message', async message => {
 
   if (message.author.bot) return;
@@ -70,51 +71,55 @@ client.on('message', async message => {
   if (message.content === "thats depressing" || message.content === "that's depressing") {
     message.channel.send("ikr smh...");
   }
-  //setting up code for args
+  //setting up code for args.
+  //this creates an array with each word after the bot's prefix
   const args = message.content.slice(prefix.length).split(' ');
+  //this gets the specific command from args, e.g play or ping, and shifts the entire array to lowercase
   const command = args.shift().toLowerCase();
-  
+
 
 
   //ping
+  //a simple test command
   if (command === 'ping') {
     message.channel.send('pong');
-  }  
+  }
   //help
+  //shows the commands that our bot supports
   if (command === "help") {
     const helpEmbed = new Discord.MessageEmbed()
 	.setColor('#e36692')
 	.setTitle('Oi, looks like you could use some help!')
-	.setAuthor('LyricMate', 'https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png', 'https://lyricmate.xyz/')
+	.setAuthor('LyricMate', 'https://lyricmate.xyz/images/lyricmate-icon.png', 'https://lyricmate.xyz/')
 	.setDescription('Heres a list of commands!')
-	.setThumbnail('https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png')
+	.setThumbnail('https://lyricmate.xyz/images/lyricmate-icon-round.png')
 	.addFields(
     { name: 'Wanna play some music?', value: 'Try "//play"! You can give a link, or just a song name' },
     { name: 'Want the bot to shut up or just leave?', value: 'Try "//leave" or "//stop"! _Bots these days... so annoying..._' },
     { name: 'Wanna jam with ur mates?', value: 'Try "//jam"! This will make a temporary invite to your current voice channel, so you can jam all day long...' },
-    { name: 'Wanna add me to your server?', value: 'Give "//addbot" a go!'},
     { name: 'Dunno what to listen to?', value: 'Give "//playlists" a go! This feature is in **BETA** and will play one of our curated plalists for a variety of genres!'},
 	)
 	.setTimestamp()
 	.setFooter('Dis bih needed some help smh...');
 
   message.channel.send(helpEmbed);
-  
-  } 
+
+  }
   //sendtestembed
+  //this sends a preview of the welcome embee
   if (command === "sendtestembed") {
   const welcomeEmbed = new Discord.MessageEmbed()
-	.setColor('#e36692')
-	.setTitle('Thanks for inviting LyricMate!')
-	.setAuthor('LyricMate', 'https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png', 'https://lyricmate.xyz/')
-	.setDescription('LyricMate is a brand new take on music bots!')
-	.setThumbnail('https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png')
-	.addFields(
-		{ name: 'Need Help?', value: 'Simply type in //help for a list of commands!' },
-		{ name: 'Wanna add me to your server?', value: 'Give //addbot a go!'},
-	)
-	.setTimestamp()
-	.setFooter('LyricMate Welcome Message');
+  .setColor('#e36692')
+  .setTitle('Thanks for inviting LyricMate!')
+  .setAuthor('LyricMate', 'https://lyricmate.xyz/images/lyricmate-icon.png', 'https://lyricmate.xyz/')
+  .setDescription('LyricMate is a brand new take on music bots!')
+  .setThumbnail('https://lyricmate.xyz/images/lyricmate-icon-round.png')
+  .addFields(
+    { name: 'Need Help?', value: 'Simply type in //help for a list of commands!' },
+    { name: '\u200B', value: '\u200B' },
+  )
+  .setTimestamp()
+  .setFooter('LyricMate Welcome Message');
 
   message.channel.send(welcomeEmbed);
   }
@@ -125,26 +130,29 @@ client.on('message', async message => {
   }
 
   //stats
+  //shows how many servers the bot has been invited to
   if (command === 'stats') {
 		return message.channel.send(`${message.author} The number of servers that I've been invited to: ${client.guilds.cache.size}`);
   }
-  
-  
+
+
 
   //jam
+  //creates a temp invite to ur vc so that ur mates can jam
   if (command === 'jam') {
     // We can only jam if someone's actually in a VC, checking:
     if (message.member.voice.channel) {
       const jamInvite = message.member.voice.channel.createInvite({ temporary = true} = {})
   .then(invite => message.reply(`wanna jam with your mates? Just send them this link! (Anyone sent this link will be kicked within 24 hours unless they are given a role) ` + process.env.INV_ROOT + `${invite.code}`))
   .catch(console.error);
-      
+
     } else {
       message.reply(VCErrorJoin);
     }
   }
 
   //join
+  //join the vc
   if (command === 'join') {
     // Only try to join the sender's voice channel if they are in one themselves
     console.log("Join command detected");
@@ -153,15 +161,16 @@ client.on('message', async message => {
       isInChannel = "true";
       voiceChannel = message.member.voice.channel;
       joinRun(message.member.voice.channel);
-      
+
     } else {
       message.reply(VCErrorJoin);
       console.log("Error, either user is not in channel or Maddie fucked up bad with her code...");
     }
-    
-    
+
+
   }
 //stop
+//stop playing music
   if (command === "stop") {
     if (message.member.voice.channel) {
       message.react('👍');
@@ -174,6 +183,7 @@ client.on('message', async message => {
   }
 
   //pause
+  //pause the music
   if (command === "pause") {
     if (message.member.voice.channel) {
       message.react('⏸️');
@@ -186,6 +196,7 @@ client.on('message', async message => {
   }
 
   //resume
+  //resume the music
   if (command === "resume") {
     if (message.member.voice.channel) {
       message.react('▶️');
@@ -196,15 +207,16 @@ client.on('message', async message => {
       console.log("Error, either user is not in channel or Maddie fucked up bad with her code...");
     }
   }
-  
-  
+
+
   var reqMessage = message.member.toString();
   //playlists
+  //shows a list of all available playlists
   if (command === "playlists") {
     const playlistsEmbed = new Discord.MessageEmbed()
 	      .setColor('#e36692')
         .setTitle('LyricMate Playlists **BETA**')
-	      .setAuthor('LyricMate', 'https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png', 'https://lyricmate.xyz/')
+	      .setAuthor('LyricMate', 'https://lyricmate.xyz/images/lyricmate-icon.png', 'https://lyricmate.xyz/')
 	      .setDescription("Here's a list of all of LyricMate's curated playlists!")
         .addFields(
           { name: 'Synthwave Playlist', value: 'Try **//synthwave** ! This will play one of our favorite synthwave playlists, perfect for chilling.\n' },
@@ -223,9 +235,10 @@ client.on('message', async message => {
   }
 
   //PLAYLIST CODE
+  //the code that handles playing playlists, pretty self explanatory
   //genre compilation arrays:
 
-  //synthwave  
+  //synthwave
   const synthwaveComps = ["https://www.youtube.com/watch?v=ICcFMBzOnYs", "https://www.youtube.com/watch?v=ujPl75kj4Vw", "https://www.youtube.com/watch?v=6TEGPexTqr4", "https://www.youtube.com/watch?v=dgCnYsDTiXU", "https://www.youtube.com/watch?v=qv3QkrYir5w"];
 
   let compType = "NULL";
@@ -251,13 +264,13 @@ client.on('message', async message => {
           .setColor('#e36692')
           .setTitle('Now playing- ' + compTitle)
           .setURL(compsShuffle)
-          .setAuthor('LyricMate', 'https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png', 'https://lyricmate.xyz/')
+          .setAuthor('LyricMate', 'https://lyricmate.xyz/images/lyricmate-icon.png', 'https://lyricmate.xyz/')
           .setDescription("You wanted some " + compType + " and we delivered.")
           .addField('Requested By:', reqMessage)
           .addField('Tip:', "You can click the 'Now Playing' button to go to the video link!")
           .setTimestamp()
           .setFooter('Playlist');
-  
+
         message.channel.send(compPlayEmbed);
       //play random compilation
       const compConnection = await message.member.voice.channel.join()
@@ -284,7 +297,7 @@ client.on('message', async message => {
     // We can only play a playlist if someone's actually in a VC, checking:
     if (message.member.voice.channel) {
       message.channel.send(incompleteFeatureMessage);
-      
+
     } else {
       message.reply(VCErrorJoin);
     }
@@ -295,16 +308,17 @@ client.on('message', async message => {
     // We can only play a playlist if someone's actually in a VC, checking:
     if (message.member.voice.channel) {
       message.channel.send(incompleteFeatureMessage);
-      
+
     } else {
       message.reply(VCErrorJoin);
     }
   }
 
   //leave
+  //leave the user's vc
   if (command === 'leave') {
-    // Only try to join the sender's voice channel if they are in one themselves
-   
+    // Only try to leave the sender's voice channel if they are in one themselves
+
     if (message.member.voice.channel) {
       message.react('👋');
       isInChannel = "false";
@@ -317,6 +331,7 @@ client.on('message', async message => {
   }
 
   //stranger
+  //fun stranger things cmd
   if (command === 'stranger') {
     const strangerGifs = ["https://media.giphy.com/media/fSN8IuBnajnXkyGFHC/giphy.gif", "https://media.giphy.com/media/WxJKwKzAmfLm1RazVi/giphy.gif", "https://media.giphy.com/media/xV6WvZzONxxtO99TwS/giphy.gif", "https://media.giphy.com/media/ehnNYpDEz5S1kRz15C/giphy.gif", "https://media.giphy.com/media/Ze8js1RkJRUImRsxn2/giphy.gif", "https://media.giphy.com/media/9Vo2COyJErrBs2pWaV/giphy.gif", "https://media.giphy.com/media/fe4695iudYhnGAiIia/giphy.gif", "https://media.giphy.com/media/WspnUsASDqdnq0v4ZW/giphy.gif"];
 
@@ -342,19 +357,20 @@ client.on('message', async message => {
           .then(messages => console.log(`Bulk deleted the stranger command messages`))
           .catch(console.error);
       });
-      
-      
+
+
     } else {
       message.reply(VCErrorJoin);
     }
   }
 
   //play
+  //code to play music
   if (command === 'play') {
     // We can only play if someone's actually in a VC, checking:
     if (message.member.voice.channel) {
         //search code
-        
+
         console.log(reqMessage);
         console.log(`${command}`);
         console.log(`${args}`);
@@ -373,27 +389,27 @@ client.on('message', async message => {
           .setColor('#e36692')
           .setTitle('Now Playing')
           .setURL(videoURL)
-          .setAuthor('LyricMate', 'https://raw.githubusercontent.com/MiniconGlyphs/miniconglyphs/master/rawTheme/Library/Themes/Minicon.theme/IconBundles/com.apple.Music-large.png', 'https://lyricmate.xyz/')
+          .setAuthor('LyricMate', 'https://lyricmate.xyz/images/lyricmate-icon.png', 'https://lyricmate.xyz/')
           .setDescription(videoTitle)
           .addField('Requested By:', reqMessage)
           .addField('Tip:', "You can click the 'Now Playing' button to go to the video link!")
           .setTimestamp()
           .setFooter('Song Request');
-  
+
         message.channel.send(playEmbed);
-  
+
         const connection = await message.member.voice.channel.join()
           .then( connection => { connection.play(ytdl(videoURL, { filter: 'audioonly' }))})
           .catch(console.error);
-      
+
     } else {
       message.reply(VCErrorJoin);
-      
+
     }
   }
-  
-   
-});  
+
+
+});
 
 //runs once the //join command is sent
 function joinRun(currentChannel) {
@@ -401,8 +417,8 @@ function joinRun(currentChannel) {
   const connection = voiceChannel.join()
     .then( connection => { connection.play('assets/gday.mp3')})
     .catch(console.error);
-      
-  console.log("joined!");  
+
+  console.log("joined!");
 }
 
 //checks to see if bot is alone

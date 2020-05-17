@@ -1,7 +1,7 @@
 {
   "name": "lyricmate",
   "version": "0.0.1",
-  "description": "lyrics and stuff",
+  "description": "play music and get lyrics for any song!",
   "main": "index.js",
   "dependencies": {
     "@discordjs/node-pre-gyp": "^0.1.0",
