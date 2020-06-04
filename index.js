@@ -1,6 +1,7 @@
 //LyricMate by MaddieX (Mojo)
 //Copyright 2020 MaddieX
 //This is not the latest version of LyricMate, it is an earlier version that is simple enough for anyone to pick apart and develop upon
+//It will be updated to the full bot soon!
 //This code is liscensed under the AGPLv3 lisence, you must follow the terms of this liscense to use this code
 require('dotenv').config({});
 
